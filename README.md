@@ -116,8 +116,8 @@ python DEEPrior.py [-h] [-m inference] [-i INPUT] [-f FUSION_TOOL] [-v VERSION] 
                         'grch38' allowed
 
   **-mp MODEL_PATH, --model_path MODEL_PATH**
-                        Path that points to the model to be used for the inference. 
-                        If 'default', the native model is used
+                        Path that points to the model to be used for the inference, to be specified only if a new model has 				been obtained with *retraining* mode
+                        If 'default' or not specified, the native model is used.
 
   **-o OUTPUT, --output OUTPUT**
                         Name (with path) of the output file, e.g.
@@ -125,7 +125,7 @@ python DEEPrior.py [-h] [-m inference] [-i INPUT] [-f FUSION_TOOL] [-v VERSION] 
 
 Example:
 ```
-python DEEPrior.py -i /home/user/DEEPrior/data/general_out_example.txt -f general -v grch37 -mp default -o /home/user/DEEPrior/results/DEEPrior_results.csv
+python DEEPrior.py -i /home/user/DEEPrior/data/general_out_example.txt -f general -v grch37 -o /home/user/DEEPrior/results/DEEPrior_results.csv
 ```
 Please, have a look to **Input files** and **Output file** for details about the files.
 
