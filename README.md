@@ -80,7 +80,7 @@ Once you have followed the previous steps, test the tool with the following comm
 ```
 source DEEPenv/bin/activate # command to activate virtual environment if you followed our installation guide
 cd DEEPrior
-python DEEPrior.py -i input_examples/general_out_example.txt -f general -v grch37 -o DEEPrior_results.csv
+python DEEPrior.py -i input_examples/general_out_example.txt -f general -v grch37 -o /home/user/DEEPrior/results/DEEPrior_results.csv
 ```
 
 If everything worked correctly, after a few seconds you will find DEEPrior_results.csv file in the DEEPrior/results folder.
