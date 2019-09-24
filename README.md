@@ -195,22 +195,17 @@ The output file contains the following information
 Although the retraining mode is not the main one, DEEPrior allows you to retrain the deep learning model if new validated gene fusions are available.
 
 #### 3.2.1 Retraining mode input file
-In this case, the input file contains validated gene fusions to be included in the retraining of the model for which the label (*oncogenic* or *not oncogenic*) is known.
-The file is similar to the one reported in 3.1.1 and in addition it contains the **Label** column which indicates the class to which that gene fusion belongs. 0 means not oncogenic and 1 oncogenic. An example of the file is provided below and also in the *input_examples* folder ('re_train_example.csv'):
+In this case, the input file is a **tab separated file** and contains validated gene fusions to be included in the retraining of the model for which the label (*oncogenic* or *not oncogenic*) is known.
+The file is similar to the one reported in 3.1.1 and in addition it contains the **Label** column which indicates the class to which that gene fusion belongs. 0 means not oncogenic and 1 oncogenic. An example of the file is provided below and also in the *input_examples* folder (*re_train_example.csv* file):
 
-chr5p	coord5p		chr3p	coord3p		label
-
-6	31637695	22	42486683	1
-
-2	85132848	2	37456103	1
-
-19	14676464	16	10862958	1
-
-21	47542847	16	30581751	0
-
-5	134261417	2	219144833	0
-
-5	134262389	2	1499769		0
+| chr5p | coord5p   | chr3p | coor3p    | label |
+|-------|-----------|-------|-----------|-------|
+| 6     | 31637695  | 22    | 42486683  | 1     |
+| 2     | 85132848  | 2     | 37456103  | 1     |
+| 19    | 14676464  | 16    | 10862958  | 1     |
+| 21    | 47542847  | 16    | 30581751  | 0     |
+| 5     | 134261417 | 2     | 219144833 | 0     |
+| 5     | 134262389 | 2     | 1499769   | 0     |
 
 
 #### 3.2.2 Retraining mode output file
