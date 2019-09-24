@@ -18,6 +18,7 @@ from pyfiglet import Figlet
 import tensorflow as tf
 
 dir_path = Path(__file__).absolute().parent.as_posix()
+results_path = os.path.join(dir_path, "results")
 config_path = os.path.join(dir_path, "resources/config.txt")
 
 @click.command()
@@ -42,23 +43,19 @@ config_path = os.path.join(dir_path, "resources/config.txt")
 
 
 def main(mode, input_file, fusion_tool, version, model_path, training, output):
+    if not os.path.exists(results_path):
+        os.mkdir(results_path)
+
     # 1. understand if we are working with GPU or CPu
-    IS_GPU = tf.compat.v1.test.is_built_with_cuda
-    # TODO: delete
-    print(" ---------------------------------------------------- GPU??????? "+str(IS_GPU)+ "    --------------------------------------------------------------------")
+    IS_GPU = tf.compat.v1.test.is_built_with_cuda()
     if IS_GPU:
-        gpu_config = load_config("GPU_PARAMETERS") #TODO: delete
         visible_dev_list =  gpu_config.get('visible_device_list')
-        #visible_dev_list = re.sub("[\'\[\]]", "", visible_dev_list).split(",")
-        #for i in range(0, len(visible_dev_list)):
-        #    visible_dev_list[i] = int(visible_dev_list[i])
 
         ktf.set_session(get_session_gpu(float(gpu_config.get('per_process_gpu_memory_fraction')),
                                         bool(gpu_config.get('allow_growth')),
                                         visible_dev_list))
         trained_model_path = os.path.join(dir_path, "resources/HN32_OPTrmsprop_DR2_03_GPU_model.hdf5")
     else:
-        cpu_config = load_config("CPU_PARAMETERS") #TODO: delete
         ktf.set_session(get_session_cpu(int(cpu_config.get('intra_op_parallelism_threads')),
                                         int(cpu_config.get('inter_op_parallelism_threads'))))
         trained_model_path = os.path.join(dir_path, "resources/HN32_OPTrmsprop_DR2_03_CPU_model.hdf5")
@@ -83,8 +80,7 @@ def main(mode, input_file, fusion_tool, version, model_path, training, output):
             sys.exit()
 
         if not os.path.exists(os.path.dirname(input_file)):
-            print(
-                "Please check input parameter. You inserted an invalid input path. '%s' does not exist." % os.path.dirname(
+            print("Please check input parameter. You inserted an invalid input path. '%s' does not exist." % os.path.dirname(
                     output))
             sys.exit()
 
