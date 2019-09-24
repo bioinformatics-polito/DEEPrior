@@ -114,6 +114,7 @@ python DEEPrior.py [-h] [-m inference] [-i INPUT] [-f FUSION_TOOL] [-v VERSION] 
   **-v VERSION, --version VERSION**
                         Genome version of input file coordinates. 'grch37' or
                         'grch38' allowed
+
   **-mp MODEL_PATH, --model_path MODEL_PATH**
                         Path that points to the model to be used for the inference. 
                         If 'default', the native model is used
