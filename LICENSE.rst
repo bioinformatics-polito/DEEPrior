@@ -26,6 +26,3 @@ Some of the contributions to DEEPrior are alternatively or additionally
 These are covered by the three clause BSD license as can be found in
 the file `LICENSE-BSD.rst <./LICENSE-BSD.rst>`__. In cases of doubt
 the terms of both licenses apply.
-
-OTHER_DEEPrior is published under the terms of the three clause BSD license as can
-be found in the file `include/OTHER_DEEPrior/LICENSE <./include/OTHER_DEEPrior/LICENSE>`__.
