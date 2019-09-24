@@ -43,9 +43,8 @@ config_path = os.path.join(dir_path, "resources/config.txt")
 
 def main(mode, input_file, fusion_tool, version, model_path, training, output):
     # 1. understand if we are working with GPU or CPu
-    IS_GPU = tf.compat.v1.test.is_built_with_cuda
-    # TODO: delete
-    print(" ---------------------------------------------------- GPU??????? "+str(IS_GPU)+ "    --------------------------------------------------------------------")
+    IS_GPU = tf.compat.v1.test.is_built_with_cuda()
+    # TODO: deletprint(" ---------------------------------------------------- GPU??????? "+str(IS_GPU)+ "    --------------------------------------------------------------------")
     if IS_GPU:
         gpu_config = load_config("GPU_PARAMETERS") #TODO: delete
         visible_dev_list =  gpu_config.get('visible_device_list')
