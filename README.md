@@ -39,7 +39,7 @@ DEEPrior is developed in Python 3.7 with minimal libraries required. To run DEEP
 The prerequisites are listed in the requirements_CPU.txt file. 
 
 #### 1.1.2 Prerequisites GPU
-We assume that **cuda 10.0** is installed on your system.  
+We assume that **cuda 10.0** is installed on your system.
 
 - xlrd 1.2.0
 - pandas 0.24.2
@@ -158,6 +158,10 @@ DEEPrior natively support the output of Defuse and STAR-Fusion, however any gene
 
 An example of the *general* format is the following:
 
+| chr5p | coord5p | chr3p | coor3p   |
+|-------|---------|-------|----------|
+| chr7  | 1000000 | chr4  | 1000000  |
+| chr9  | 2555965 | chr6  | 56444888 |
 chr5p   coord5p chr3p   coord3p
 
 chr7    1000000 chr4    1000000
