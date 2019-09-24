@@ -154,7 +154,7 @@ Inference mode is the default mode. The following are the input and output files
 
 #### 3.1.1 Inference mode input file
 DEEPrior is intended to be run after gene fusion detection tools in order to prioritize the output and focus on gene fusions with a higher probability to be involved in oncogenic processes.
-DEEPrior natively support the output of Defuse and STAR-Fusion, however any gene fusion can be processed providing the genomic coordinates of the breakpoints.
+DEEPrior natively support the output of Defuse and STAR-Fusion, however any gene fusion can be processed providing in a **tab separated file** the genomic coordinates of the breakpoints (see *general_out_example.txt* file in *input_example* folder).
 
 An example of the *general* format is the following:
 
@@ -162,11 +162,6 @@ An example of the *general* format is the following:
 |-------|---------|-------|----------|
 | chr7  | 1000000 | chr4  | 1000000  |
 | chr9  | 2555965 | chr6  | 56444888 |
-chr5p   coord5p chr3p   coord3p
-
-chr7    1000000 chr4    1000000
-
-chr9    2555965 chr6    56444888
 
 
 The first two columns refer to chromosome number and breakpoint coordinate of 5p gene, while third and fourth columns refer to 3p gene. Coordinates can be entered in genome version *grch37* or *grch38*.
