@@ -39,6 +39,7 @@ DEEPrior is developed in Python 3.7 with minimal libraries required. To run DEEP
 The prerequisites are listed in the requirements_CPU.txt file. 
 
 #### 1.1.2 Prerequisites GPU
+We assume that **cuda 10.0** is installed on your system.  
 
 - xlrd 1.2.0
 - pandas 0.24.2
@@ -55,7 +56,6 @@ The prerequisites are listed in the requirements_CPU.txt file.
 - tensorflow 1.13.1
 - tensorflow-estimator 1.13.0 
 - tensorflow-gpu 1.13.1
-- cuda 10.0  <--
 
 The prerequisites are listed in the requirements_GPU.txt file. 
 
