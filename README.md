@@ -8,7 +8,7 @@ To implement these concepts, the tool exploits two modes: inference (to prioriti
 DEEPrior is implemented in Python 3.7 with minimal additional libraries, and it is available both for CPU and GPU.
 
 In the following you will find:
-In the following you will find:
+
 1) *Getting Started*: obtain a working copy of DEEPrior
 2) *Usage*: how to use DEEPrior with examples
 3) *Files*: input and output files for inference and retraining mode
