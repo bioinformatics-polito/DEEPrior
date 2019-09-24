@@ -1,0 +1,9 @@
+Name: FusionSelector
+Author: Marta Lovino <marta.lovino@polito.it>
+Maintainer1: Marta Lovino <marta.lovino@polito.it>
+Maintainer2: Maria Serena Ciaburri <maria.ciaburri@polito.it>
+License: AGPL v3
+Copyright: 2017-2019 Marta Lovino and Gianvito Urgese, Politecnico di Torino
+Status: under development
+Description: FusionSelector is an inherently flexible tool based on deep learning that provides a probability value for a gene fusion to be driver in an oncogenic process by exploiting directly the amino acid sequence of the fused protein. Compared to the state of the art tools,  FusionSelector is able to successfully prioritize a greater number of driver gene fusions with a good precision.
+Acknowledgements: This open source software code was developed in part in the XXX Project, funded from the European Union’s Horizon 2020 Framework Programme for Research and Innovation under the Specific Grant Agreement No. XXX (XXX). We thank Gao et al., 2018 (Driver fusions and their implications in the development and treatment of human cancers) for providing WGS validated data and Wen-Wei Liang for illustrating the WGS validation process.
