@@ -49,7 +49,7 @@ def main(mode, input_file, fusion_tool, version, model_path, training, output):
     # 1. understand if we are working with GPU or CPu
     IS_GPU = tf.compat.v1.test.is_built_with_cuda()
     if IS_GPU:
-	gpu_config = load_config("GPU_PARAMETERS")
+        gpu_config = load_config("GPU_PARAMETERS")
         visible_dev_list =  gpu_config.get('visible_device_list')
 
         ktf.set_session(get_session_gpu(float(gpu_config.get('per_process_gpu_memory_fraction')),
@@ -57,7 +57,7 @@ def main(mode, input_file, fusion_tool, version, model_path, training, output):
                                         visible_dev_list))
         trained_model_path = os.path.join(dir_path, "resources/HN32_OPTrmsprop_DR2_03_GPU_model.hdf5")
     else:
-	cpu_config = load_config("CPU_PARAMETERS")
+        cpu_config = load_config("CPU_PARAMETERS")
         ktf.set_session(get_session_cpu(int(cpu_config.get('intra_op_parallelism_threads')),
                                         int(cpu_config.get('inter_op_parallelism_threads'))))
         trained_model_path = os.path.join(dir_path, "resources/HN32_OPTrmsprop_DR2_03_CPU_model.hdf5")
