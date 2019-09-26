@@ -62,15 +62,17 @@ The prerequisites are listed in the requirements_GPU.txt file.
 ### 1.2 Installing
 First of all, check if you have pip and the virtual environments packages for Python3. If pip and/or virtualenv are not installed in your system, follow the instructions reported [here](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/).
 
-Now copy and paste these instrucions to create and activate a DEEPrior virtual environment:
+Now copy and paste these instrucions to create and activate a DEEPrior virtual environment called *DEEPenv*:
 ```
 python3 -m venv DEEPenv
 source DEEPenv/bin/activate
 ```
-Then **clone this repository** in the virtualenv folder. 
-Move in the DEEPenv forlder and install all the required packages. Use requirements_CPU.txt if you are installing the CPU version of DEEPrior, requirements_GPU.txt otherwise. 
+Then move in the DEEPenv forlder, **clone this repository** and install all the required packages. 
+Use requirements_CPU.txt if you are installing the CPU version of DEEPrior, requirements_GPU.txt otherwise. 
 ```
 cd DEEPenv
+git clone https://github.com/bioinformatics-polito/DEEPrior.git
+cd DEEPrior
 pip3 install -r requirements_CPU.txt
 ```
 
