@@ -1,18 +1,18 @@
 # DEEPrior
 
-DEEPrior is an inherently flexible tool based on deep learning that provides a probability value for a gene fusion to be driver in an oncogenic process by exploiting directly the amino acid sequence of the fused protein. Compared to the state of the art tools,  DEEPrior is able to successfully prioritize a greater number of driver gene fusions with a good precision.
+DEEPrior is an inherently flexible deep learning tool that predicts the probability
+of a gene fusion being a driver of an oncogenic process, by directly exploiting the amino acid sequence of the fused protein and it is able to prioritize gene fusions from different tumors. Unlike state of the art tools, it also support easy retraining and re-adaptation of the model. 
+
+To implement these concepts, the tool exploits two modes: inference (to prioritize gene fusions) and retraining (to create a new deep learning model).
+
+DEEPrior is implemented in Python 3.7 with minimal additional libraries, and it is available both for CPU and GPU.
 
 In the following you will find:
-1) *Getting Started*: obtain a working copy of DEEPrior
-2) *Usage*: how to use DEEPrior with input and output files description
-3) *Datasets*: description of datasets used to train and test # DEEPrior
 
-DEEPrior is an inherently flexible tool based on deep learning that provides a probability value for a gene fusion to be driver in an oncogenic process by exploiting directly the amino acid sequence of the fused protein. Compared to the state of the art tools,  DEEPrior is able to successfully prioritize a greater number of driver gene fusions with a good precision.
-
-In the following you will find:
 1) *Getting Started*: obtain a working copy of DEEPrior
-2) *Usage*: how to use DEEPrior with input and output files description
-3) *Datasets*: description of datasets used to train and test DEEPrior
+2) *Usage*: how to use DEEPrior with examples
+3) *Files*: input and output files for inference and retraining mode
+4) *Datasets*: description of datasets used to train and test DEEPrior
 
 
 ## 1. Getting Started
@@ -39,6 +39,7 @@ DEEPrior is developed in Python 3.7 with minimal libraries required. To run DEEP
 The prerequisites are listed in the requirements_CPU.txt file. 
 
 #### 1.1.2 Prerequisites GPU
+We assume that **cuda 10.0** is installed on your system.
 
 - xlrd 1.2.0
 - pandas 0.24.2
@@ -53,9 +54,8 @@ The prerequisites are listed in the requirements_CPU.txt file.
 - pyfiglet 0.8.post1
 - keras 2.2.4
 - tensorflow 1.13.1
-- tensorflow-estimator 1.13.0  
+- tensorflow-estimator 1.13.0 
 - tensorflow-gpu 1.13.1
-- cuda 10.0  <--
 
 The prerequisites are listed in the requirements_GPU.txt file. 
 
@@ -80,7 +80,7 @@ Once you have followed the previous steps, test the tool with the following comm
 ```
 source DEEPenv/bin/activate # command to activate virtual environment if you followed our installation guide
 cd DEEPrior
-python DEEPrior.py -i input_examples/general_out_example.txt -f general -v grch37 -o DEEPrior_results.csv
+python DEEPrior.py -i input_examples/general_out_example.txt -f general -v grch37 -o /home/user/DEEPrior/results/DEEPrior_results.csv
 ```
 
 If everything worked correctly, after a few seconds you will find DEEPrior_results.csv file in the DEEPrior/results folder.
@@ -114,9 +114,10 @@ python DEEPrior.py [-h] [-m inference] [-i INPUT] [-f FUSION_TOOL] [-v VERSION] 
   **-v VERSION, --version VERSION**
                         Genome version of input file coordinates. 'grch37' or
                         'grch38' allowed
+
   **-mp MODEL_PATH, --model_path MODEL_PATH**
-                        Path that points to the model to be used for the inference. 
-                        If 'default', the native model is used
+                        Path that points to the model to be used for the inference, to be specified only if a new model has 				been obtained with *retraining* mode
+                        If 'default' or not specified, the native model is used.
 
   **-o OUTPUT, --output OUTPUT**
                         Name (with path) of the output file, e.g.
@@ -124,7 +125,7 @@ python DEEPrior.py [-h] [-m inference] [-i INPUT] [-f FUSION_TOOL] [-v VERSION] 
 
 Example:
 ```
-python DEEPrior.py -i /home/user/DEEPrior/data/general_out_example.txt -f general -v grch37 -mp default -o /home/user/DEEPrior/results/DEEPrior_results.csv
+python DEEPrior.py -i /home/user/DEEPrior/data/general_out_example.txt -f general -v grch37 -o /home/user/DEEPrior/results/DEEPrior_results.csv
 ```
 Please, have a look to **Input files** and **Output file** for details about the files.
 
@@ -147,24 +148,27 @@ python DEEPrior.py [-h] [-m retraining] [-i INPUT] [-v VERSION] [-t TRAINING_FLA
 
 
 ## 3 Files
-### 3.1 Input files
+
+### 3.1 Inference mode
+Inference mode is the default mode. The following are the input and output files.
+
+#### 3.1.1 Inference mode input file
 DEEPrior is intended to be run after gene fusion detection tools in order to prioritize the output and focus on gene fusions with a higher probability to be involved in oncogenic processes.
-DEEPrior natively support the output of Defuse and STAR-Fusion, however any gene fusion can be processed providing the genomic coordinates of the breakpoints.
+DEEPrior natively support the output of Defuse and STAR-Fusion, however any gene fusion can be processed providing in a **tab separated file** the genomic coordinates of the breakpoints (see *general_out_example.txt* file in *input_example* folder).
 
 An example of the *general* format is the following:
 
-chr5p   coord5p chr3p   coord3p
-
-chr7    1000000 chr4    1000000
-
-chr9    2555965 chr6    56444888
+| chr5p | coord5p | chr3p | coor3p   |
+|-------|---------|-------|----------|
+| chr7  | 1000000 | chr4  | 1000000  |
+| chr9  | 2555965 | chr6  | 56444888 |
 
 
 The first two columns refer to chromosome number and breakpoint coordinate of 5p gene, while third and fourth columns refer to 3p gene. Coordinates can be entered in genome version *grch37* or *grch38*.
 
 In *input_examples* folder you can find examples of input files for general, DeFuse and STAR-Fusion options.
 
-### 3.2 Output file
+#### 3.1.2 Inference mode output file
 The output file contains the following information
 
 - **fusion_pair:** name of the gene fusion with common gene names 
@@ -187,6 +191,25 @@ The output file contains the following information
 - **main protein:** the protein with no skipped exons
 - **proteins:** all other possible proteins, if all proteing conding transcripts are considered
 
+### 3.2 Retraining mode
+Although the retraining mode is not the main one, DEEPrior allows you to retrain the deep learning model if new validated gene fusions are available.
+
+#### 3.2.1 Retraining mode input file
+In this case, the input file is a **tab separated file** and contains validated gene fusions to be included in the retraining of the model for which the label (*oncogenic* or *not oncogenic*) is known.
+The file is similar to the one reported in 3.1.1 and in addition it contains the **Label** column which indicates the class to which that gene fusion belongs. 0 means not oncogenic and 1 oncogenic. An example of the file is provided below and also in the *input_examples* folder (*re_train_example.csv* file):
+
+| chr5p | coord5p   | chr3p | coor3p    | label |
+|-------|-----------|-------|-----------|-------|
+| 6     | 31637695  | 22    | 42486683  | 1     |
+| 2     | 85132848  | 2     | 37456103  | 1     |
+| 19    | 14676464  | 16    | 10862958  | 1     |
+| 21    | 47542847  | 16    | 30581751  | 0     |
+| 5     | 134261417 | 2     | 219144833 | 0     |
+| 5     | 134262389 | 2     | 1499769   | 0     |
+
+
+#### 3.2.2 Retraining mode output file
+The retraining mode output consists of a **.hdf5 file** containing the weights and the architecture of the new trained model. This model can then be used to make the gene fusions inference instead of the default deep learning model.
 
 ## 4. Datasets
 Together with the DEEPrior tool, we provide to the scientific community the datasets used to train and test DEEPrior. The datasets (*training.csv*, *test_set_1.csv*, *test_set_2.csv*) are available in *DEEPrior/data* folder in the format described in section 2.2. Moreover, there is a *Label* column identifying which class the gene fusion belongs to (0 for *NotOnco* and 1 for *Onco*).
