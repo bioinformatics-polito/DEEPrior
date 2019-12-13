@@ -77,16 +77,17 @@ pip3 install -r requirements_CPU.txt
 ```
 
 ### 1.3 Test if everything is ok
-Once you have followed the previous steps, test the tool with the following commands:
+Once you have followed the previous steps, **move into DEEPenv folder** and test the tool with the following commands:
 
 ```
-source DEEPenv/bin/activate # command to activate virtual environment if you followed our installation guide
-cd DEEPrior
+cd ../              # move to DEEPenv folder. You can use the global path e.g. cd /home/user/DEEPenv
+source bin/activate # command to activate virtual environment if you followed our installation guide
+cd DEEPrior/DEEPrior
 mkdir results
 python DEEPrior.py -i input_examples/general_out_example.txt -f general -v grch37 -o results/DEEPrior_results.csv
 ```
 
-If everything worked correctly, after a few seconds you will find DEEPrior_results.csv file in the DEEPrior/results folder.
+If everything worked correctly, after a few seconds you will find DEEPrior_results.csv file in the DEEPenv/DEEPrior/DEEPrior/results folder.
 It's done, you are now ready to use DEEPrior!
 
 
@@ -107,7 +108,7 @@ python DEEPrior.py [-h] [-m inference] [-i INPUT] [-f FUSION_TOOL] [-v VERSION] 
 
   **-i INPUT, --input INPUT**
                         input file (with path) of gene fusions to prioritize,
-                        e.g. /home/user/DEEPrior/input_examples/general_out_example.txt
+                        e.g. /home/user/DDEPenv/DEEPrior/DEEPrior/input_examples/general_out_example.txt
 
   **-f FUSION_TOOL, --fusion_tool FUSION_TOOL**
                         Name of the gene fusion detection tool used to obtain
@@ -119,17 +120,17 @@ python DEEPrior.py [-h] [-m inference] [-i INPUT] [-f FUSION_TOOL] [-v VERSION] 
                         'grch38' allowed
 
   **-mp MODEL_PATH, --model_path MODEL_PATH**
-                        Path that points to the model to be used for the inference, to be specified only if a new model has 				been obtained with *retraining* mode
+                        Path that points to the model to be used for the inference, to be specified only if a new model has been obtained with *retraining* mode
                         If 'default' or not specified, the native model is used.
 
   **-o OUTPUT, --output OUTPUT**
                         Name (with path) of the output file, e.g.
-                        /home/user/DEEPrior/results/DEEPrior_results.csv 
+                        /home/user/DEEPenv/DEEPrior/DEEPrior/results/DEEPrior_results.csv 
                         The output file extension must be .csv
 
 Example:
 ```
-python DEEPrior.py -i /home/user/DEEPrior/data/general_out_example.txt -f general -v grch37 -o /home/user/DEEPrior/results/DEEPrior_results.csv
+python DEEPrior.py -i /home/user/DEEPenv/DEEPprior/DEEPrior/input_examples/general_out_example.txt -f general -v grch37 -o /home/user/DEEPenv/DEEPrior/DEEPrior/results/DEEPrior_results.csv
 ```
 Please, have a look to **Input files** and **Output file** for details about the files.
 
@@ -142,7 +143,7 @@ python DEEPrior.py [-h] [-m retraining] [-i INPUT] [-v VERSION] [-t TRAINING_FLA
 
   **-i INPUT, --input INPUT**
                         input file (with path) of gene fusions to prioritize,
-                        e.g. /home/user/DEEPrior/input_examples/general_out_example.txt
+                        e.g. /home/user/DEEPenv/DEEPrior/DEEPrior/input_examples/general_out_example.txt
   **-v VERSION, --version VERSION**
                         Genome version of input file coordinates. 'grch37' or
                         'grch38' allowed
