@@ -108,7 +108,7 @@ python DEEPrior.py [-h] [-m inference] [-i INPUT] [-f FUSION_TOOL] [-v VERSION] 
 
   **-i INPUT, --input INPUT**
                         input file (with path) of gene fusions to prioritize,
-                        e.g. /home/user/DDEPenv/DEEPrior/DEEPrior/input_examples/general_out_example.txt
+                        e.g. /home/user/DEEPenv/DEEPrior/DEEPrior/input_examples/general_out_example.txt
 
   **-f FUSION_TOOL, --fusion_tool FUSION_TOOL**
                         Name of the gene fusion detection tool used to obtain
