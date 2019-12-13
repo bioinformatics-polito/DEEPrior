@@ -111,8 +111,8 @@ python DEEPrior.py [-h] [-m inference] [-i INPUT] [-f FUSION_TOOL] [-v VERSION] 
 
   **-f FUSION_TOOL, --fusion_tool FUSION_TOOL**
                         Name of the gene fusion detection tool used to obtain
-                        the input file. Supported tools are: 'DeFuse', 'STAR-
-                        Fusion', 'general' (default)
+                        the input file. Supported tools are: 'DeFuse', 'STAR-Fusion', 'ChimPIPE', 'EricScript', 'FusionCatcher',
+                        'InFusion', 'JAFFA', 'SOAPfuse', 'TopHat', 'general' (default)
 
   **-v VERSION, --version VERSION**
                         Genome version of input file coordinates. 'grch37' or
@@ -125,6 +125,7 @@ python DEEPrior.py [-h] [-m inference] [-i INPUT] [-f FUSION_TOOL] [-v VERSION] 
   **-o OUTPUT, --output OUTPUT**
                         Name (with path) of the output file, e.g.
                         /home/user/DEEPrior/results/DEEPrior_results.csv 
+                        The output file extension must be .csv
 
 Example:
 ```
@@ -157,7 +158,7 @@ Inference mode is the default mode. The following are the input and output files
 
 #### 3.1.1 Inference mode input file
 DEEPrior is intended to be run after gene fusion detection tools in order to prioritize the output and focus on gene fusions with a higher probability to be involved in oncogenic processes.
-DEEPrior natively support the output of Defuse and STAR-Fusion, however any gene fusion can be processed providing in a **tab separated file** the genomic coordinates of the breakpoints (see *general_out_example.txt* file in *input_example* folder).
+DEEPrior natively support the output of DeFuse, STAR-Fusion, ChimPIPE, EricScript, FusionCatcher, InFusion, JAFFA, SOAPfuse, TopHat, however any gene fusion can be processed providing in a **tab separated file** the genomic coordinates of the breakpoints (see *general_out_example.txt* file in *input_example* folder).
 
 An example of the *general* format is the following:
 
@@ -191,8 +192,12 @@ The output file contains the following information
 - **3p ensg:** ENSEMBL gene identifier of 3p gene
 - **3p gene functionality:** functionality of 3p gene (e.g. proteing coding or not)
 - **3p gene description:** additional information about 3p gene provided by ENSEMBL, usually a description of the biological process in which the gene is involved
+- **MainProteinLength:** length of the fused protein
+- **TruncatedProtein:** Yes if the fused protein is truncated (an early stop codon occurs in the protein). No otherwise.
+- **5p_gene_complete:** Yes if 5p gene is complete in the fusion (stop codon in upstream gene is present in the protein). No otherwise.
+- **3p_gene_complete:** Yes if 3p gene is complete in the fusion (start codon in downstream gene is present in the protein). No otherwise.
 - **main protein:** the protein with no skipped exons
-- **proteins:** all other possible proteins, if all proteing conding transcripts are considered
+
 
 ### 3.2 Retraining mode
 Although the retraining mode is not the main one, DEEPrior allows you to retrain the deep learning model if new validated gene fusions are available.

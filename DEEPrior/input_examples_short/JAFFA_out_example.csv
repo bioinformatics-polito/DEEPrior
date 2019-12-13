@@ -1,0 +1,8 @@
+"sample","fusion genes","chrom1","base1","chrom2","base2","gap (kb)","spanning pairs","spanning reads","inframe","aligns","rearrangement","contig","contig break","classification","known"
+"jaffa-direct","RLF:MYCL","chr1",40627308,"chr1",40367115,260.192,534,78,TRUE,TRUE,TRUE,"C19C7ACXX121128:1:1202:7406:96166/1",38,"HighConfidence","-"
+"jaffa-direct","RLF:MYCL","chr1",40627308,"chr1",40363642,263.667,435,141,FALSE,TRUE,TRUE,"C19C7ACXX121128:6:2210:10746:99389/1",38,"HighConfidence","-"
+"jaffa-direct","RLF:TRIT1","chr1",40627308,"chr1",40323089,304.217,25,12,TRUE,TRUE,TRUE,"C19C7ACXX121128:3:1303:9282:82717/1",44,"HighConfidence","-"
+"jaffa-direct","RLF:TRIT1","chr1",40627308,"chr1",40309890,317.415,11,5,TRUE,TRUE,TRUE,"C19C7ACXX121128:2:2210:13051:68696/2",42,"HighConfidence","-"
+"jaffa-direct","CLTCL1:HIRA","chr22",19263146,"chr22",19319079,55.931,5,4,FALSE,TRUE,TRUE,"C19U6ACXX121211:8:2111:19937:79933/1",46,"HighConfidence","-"
+"jaffa-direct","RLF:RP5-951N9.1","chr1",40627308,"chr12",1490399,Inf,3,6,FALSE,TRUE,TRUE,"D1EDCACXX121128:7:2301:6264:25817/1",39,"HighConfidence","-"
+"jaffa-direct","MT-ND4:PSMA7","chrM",12058,"chr20",60715989,Inf,1,2,NA,FALSE,TRUE,"C19U6ACXX121211:2:1302:10304:73409/2",39,"LowConfidence","-"

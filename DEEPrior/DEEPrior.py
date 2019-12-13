@@ -9,11 +9,12 @@ import os
 import sys
 import re
 import keras.backend.tensorflow_backend as ktf
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)))
 from lib.create_fusion_list import create_fusion_list
 from lib.evaluate_fusions import evaluate_fusions
 from lib.model_retraining import model_retraining
-from lib.deep_utils import get_session_cpu, get_session_gpu,load_config
+from lib.deep_utils import get_session_cpu, get_session_gpu, load_config
 from pyfiglet import Figlet
 import tensorflow as tf
 
@@ -21,14 +22,17 @@ dir_path = Path(__file__).absolute().parent.as_posix()
 results_path = os.path.join(dir_path, "results")
 config_path = os.path.join(dir_path, "resources/config.txt")
 
+
 @click.command()
-@click.option('--mode', '-m', help="Tool mode. Only 'retraining' or 'inference' (default) allowed.", default='inference')
+@click.option('--mode', '-m', help="Tool mode. Only 'retraining' or 'inference' (default) allowed.",
+              default='inference')
 @click.option('--input_file', '-i',
               help='input file (with path) of gene fusions to prioritize, e.g. '
                    '/home/user/DEEPrior/input_examples/general_out_example.txt.')
 @click.option('--fusion_tool', '-f',
               help="Name of the gene fusion detection tool used to obtain the input file. "
-                   "Supported tools are: 'DeFuse', 'STAR-Fusion', 'general' (default). To be used only in inference mode.",
+                   "Supported tools are: 'DeFuse', 'ChimPIPE', 'EricScript', 'FusionCatcher', 'InFusion', 'JAFFA', "
+                   "'SOAPfuse', 'TopHat', 'STAR-Fusion', 'general' (default). To be used only in inference mode.",
               default='general')
 @click.option('--version', '-v',
               help="Genome version of input file coordinates. 'grch37' or 'grch38' are allowed.")
@@ -36,12 +40,10 @@ config_path = os.path.join(dir_path, "resources/config.txt")
                                           'To be specified only in inference mode.',
               default='default')
 @click.option('--training', '-t', default='True', help='True to include in the re-training the default training set. '
-                                                     'False otherwise. To be used only in retraining mode.')
+                                                       'False otherwise. To be used only in retraining mode.')
 @click.option('--output', '-o',
               help='Output file (with path and .csv file extension), e.g. /home/user/DEEPrior/results/'
                    'DEEPrior_results.csv. To be used only in inference mode.')
-
-
 def main(mode, input_file, fusion_tool, version, model_path, training, output):
     if not os.path.exists(results_path):
         os.mkdir(results_path)
@@ -50,7 +52,7 @@ def main(mode, input_file, fusion_tool, version, model_path, training, output):
     IS_GPU = tf.compat.v1.test.is_built_with_cuda()
     if IS_GPU:
         gpu_config = load_config("GPU_PARAMETERS")
-        visible_dev_list =  gpu_config.get('visible_device_list')
+        visible_dev_list = gpu_config.get('visible_device_list')
 
         ktf.set_session(get_session_gpu(float(gpu_config.get('per_process_gpu_memory_fraction')),
                                         bool(gpu_config.get('allow_growth')),
@@ -71,7 +73,7 @@ def main(mode, input_file, fusion_tool, version, model_path, training, output):
         print("Please check mode parameter. You inserted %s, but allowed options are: inference, retraining" % mode)
         sys.exit()
 
-    ###############################  INFERENCE MODE  ######################################
+    # ---------------------------------  INFERENCE MODE  ---------------------------------
     if mode == 'inference':
         # 4a. check if all the parameters required for the inference mode are present: -i, -f, -v, -mp, -o
         if any(n is None for n in [input_file, fusion_tool, version, model_path, output]):
@@ -82,7 +84,8 @@ def main(mode, input_file, fusion_tool, version, model_path, training, output):
             sys.exit()
 
         if not os.path.exists(os.path.dirname(input_file)):
-            print("Please check input parameter. You inserted an invalid input path. '%s' does not exist." % os.path.dirname(
+            print(
+                "Please check input parameter. You inserted an invalid input path. '%s' does not exist." % os.path.dirname(
                     output))
             sys.exit()
 
@@ -90,9 +93,11 @@ def main(mode, input_file, fusion_tool, version, model_path, training, output):
             print("Please check input parameter. The '%s' file that does exist." % os.path.basename(input_file))
             sys.exit()
 
-        if fusion_tool not in ['DeFuse', 'STAR-Fusion', 'general']:
+        if fusion_tool not in ['DeFuse', 'STAR-Fusion', 'general', 'ChimPIPE', 'EricScript', 'FusionCatcher',
+                               'InFusion', 'JAFFA', 'SOAPfuse', 'TopHat']:
             print("Please check fusion_tool parameter. You inserted '%s', but allowed options are: 'DeFuse', "
-                  "'STAR-Fusion', 'general' (default)." % fusion_tool)
+                  "'STAR-Fusion', 'ChimPIPE', 'EricScript', 'FusionCatcher', 'InFusion', 'JAFFA', "
+                  "'SOAPfuse', 'TopHat', 'general' (default)." % fusion_tool)
             sys.exit()
 
         if version not in ['grch37', 'grch38']:
@@ -133,7 +138,14 @@ def main(mode, input_file, fusion_tool, version, model_path, training, output):
 
         # 5a. if every parameter is correct, open the input file
         try:
-            file = pd.read_csv(input_file, sep='\t')
+            if fusion_tool == 'JAFFA':
+                file = pd.read_csv(input_file, sep=',')
+
+            elif fusion_tool == 'TopHat':
+                file = pd.read_csv(input_file, sep='\t', header=None)
+
+            else:
+                file = pd.read_csv(input_file, sep='\t')
         except IOError:
             print("Problems in opening the input file. Check if it exists and the spelling is correct.")
             sys.exit()
@@ -143,7 +155,7 @@ def main(mode, input_file, fusion_tool, version, model_path, training, output):
         # 7a. evaluate the gene fusions
         evaluate_fusions(list_fusions=list_fusions, trained_model_path=model_path, output_file_path=output)
 
-    ###############################  REATRAINING MODE  ######################################
+    # ---------------------------------  RETRAINING MODE  ---------------------------------
     elif mode == 'retraining':
         # 4a. check if all the required parameters for the retraining mode are present: -i, -v, -t
         if any(n is None for n in [input_file, version, training]):
@@ -168,8 +180,9 @@ def main(mode, input_file, fusion_tool, version, model_path, training, output):
             sys.exit()
 
         if training not in ['True', 'False']:
-            print("Please check the training parameters. You inserted '%s', but allowed options are: 'True' (default) or 'False'."
-                  % training)
+            print(
+                "Please check the training parameters. You inserted '%s', but allowed options are: 'True' (default) or 'False'."
+                % training)
             sys.exit()
         elif training == 'True':
             training_flag = True

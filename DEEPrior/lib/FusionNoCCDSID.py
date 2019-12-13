@@ -17,12 +17,13 @@ class FusionNoCCDSID:
         self.fusion_pair = ''
         self.info_breakpoints = []
         self.sequences = []
+        self.sequences_details = []
         self.protein_cod = []
 
         self._fusion_info()
         # only if both are protein coding, calculates info_breakpoints and sequences
-        if all(elem == 'protein_coding' for elem in self.protein_cod):
-            self._calculate_sequences()
+        # if all(elem == 'protein_coding' for elem in self.protein_cod):
+        self._calculate_sequences()
 
     def _fusion_info(self):
         # calculate fusion_pair, protein_coding only if a there is a valid ENSG gene
@@ -38,23 +39,52 @@ class FusionNoCCDSID:
         and 'UTR' sequences are changed with ''
         :return: info_breakpoints and sequences
         """
-        sequences5p = self.portions[0].sequences
-        sequences3p = self.portions[1].sequences
-        info5p = self.portions[0].breakpoint_info
-        info3p = self.portions[1].breakpoint_info
+        try:
+            sequences5p = self.portions[0].sequences
+            info5p = self.portions[0].breakpoint_info
+        except IndexError:
+            sequences5p = ['']
+            info5p = [None]
 
-        # permutations are performed only if both Portions have a sequence
-        if '' not in sequences3p and '' not in sequences5p:
-            for i in range(len(sequences5p)):
-                if sequences5p[i] == 'UTR':
-                    sequences5p[i] = ''
+        try:
+            sequences3p = self.portions[1].sequences
+            info3p = self.portions[1].breakpoint_info
+        except IndexError:
+            sequences3p = ['']
+            info3p = [None]
 
-                for j in range(len(sequences3p)):
-                    if sequences3p[j] == 'UTR':
-                        sequences3p[i] = ''
+        # # permutations are performed only if both Portions have a sequence
+        # if '' not in sequences3p and '' not in sequences5p:
+        for i in range(len(sequences5p)):
+            if sequences5p[i] == 'UTR':
+                sequences5p[i] = ''
 
-                    self.info_breakpoints.append([info5p[i], info3p[j]])
-                    self.sequences.append(sequences5p[i] + sequences3p[j])
+            for j in range(len(sequences3p)):
+                if sequences3p[j] == 'UTR':
+                    sequences3p[i] = ''
+
+                self.info_breakpoints.append([info5p[i], info3p[j]])
+                self.sequences.append(sequences5p[i] + sequences3p[j])
+                self.sequences_details.append(sequences5p[i] + '-' + sequences3p[j])
+
+        # sequences5p = self.portions[0].sequences
+        # sequences3p = self.portions[1].sequences
+        # info5p = self.portions[0].breakpoint_info
+        # info3p = self.portions[1].breakpoint_info
+        #
+        # # permutations are performed only if both Portions have a sequence
+        # if '' not in sequences3p and '' not in sequences5p:
+        #     for i in range(len(sequences5p)):
+        #         if sequences5p[i] == 'UTR':
+        #             sequences5p[i] = ''
+        #
+        #         for j in range(len(sequences3p)):
+        #             if sequences3p[j] == 'UTR':
+        #                 sequences3p[i] = ''
+        #
+        #             self.info_breakpoints.append([info5p[i], info3p[j]])
+        #             self.sequences.append(sequences5p[i] + sequences3p[j])
+        #             self.sequences_details.append(sequences5p[i] + '-' + sequences3p[j])
 
         return
 

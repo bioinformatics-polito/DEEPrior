@@ -13,7 +13,8 @@ dir_path = Path(__file__).absolute().parent.parent.as_posix()
 def evaluate_fusions(list_fusions, trained_model_path, output_file_path):
     df_res_columns = ['FusionPair', 'OncogenicProbability', 'Version', 'Chr5p', 'Coord5p', '5pStrand', '5pCommonName',
                       '5pEnsg', '5pGeneFunctionality', '5pGeneDescription', 'Chr3p', 'Coord3p', '3pStrand',
-                      '3pCommonName', '3pEnsg', '3pGeneFunctionality', '3pGeneDescription', 'MainProtein', 'Proteins']
+                      '3pCommonName', '3pEnsg', '3pGeneFunctionality', '3pGeneDescription', 'MainProteinLength',
+                      'TruncatedProtein', '5p_gene_complete', '3p_gene_complete', 'MainProtein']
 
     # 1. load the tokenizer
     tokenizer = load_tokenizer()
@@ -29,7 +30,7 @@ def evaluate_fusions(list_fusions, trained_model_path, output_file_path):
     # 3. for each fusion in the list, extract the protein sequences
     for fusion in list_fusions:
         i = i+1
-        print("Deep learning processing: %0.2f%% completed" %(i/len(list_fusions)*100))
+        print("Deep learning processing: %0.2f%% completed" % (i/len(list_fusions)*100))
         x_test, sequences, label = retrieve_test_sequences(fusion, tokenizer)
         try:
             if fusion.portions[0].genes[0].strand == 1:
@@ -76,13 +77,17 @@ def evaluate_fusions(list_fusions, trained_model_path, output_file_path):
                                     '3pEnsg': fusion.portions[1].ensg,
                                     '3pGeneFunctionality': fusion.protein_cod[1],
                                     '3pGeneDescription': fusion.portions[1].genes[0].description,
-                                    'MainProteins': main_protein_seq,
-                                    'Proteins': sequences
+                                    'MainProteinLength': fusion.main_protein_len,
+                                    'TruncatedProtein': fusion.early_stop,
+                                    '5p_gene_complete': fusion.complete_5p,
+                                    '3p_gene_complete': fusion.complete_3p,
+                                    'MainProtein': main_protein_seq
+                                    # 'Proteins': sequences
                                     }, ignore_index=True)
         else:
             try:
                 df_res = df_res.append({'FusionPair': fusion.fusion_pair,
-                                        'OncogenicProbability': 'Not Applicable, not protein coding genes',
+                                        'OncogenicProbability': 'Not Applicable',
                                         'Version': fusion.version,
                                         'Chr5p': fusion.chr5p,
                                         'Coord5p': fusion.coord5p,
@@ -98,11 +103,36 @@ def evaluate_fusions(list_fusions, trained_model_path, output_file_path):
                                         '3pEnsg': fusion.portions[1].ensg,
                                         '3pGeneFunctionality': fusion.protein_cod[1],
                                         '3pGeneDescription': fusion.portions[1].genes[0].description,
-                                        'MainProteins': main_protein_seq,
-                                        'Proteins': sequences
+                                        'MainProteinLength': fusion.main_protein_len,
+                                        'TruncatedProtein': fusion.early_stop,
+                                        '5p_gene_complete': fusion.complete_5p,
+                                        '3p_gene_complete': fusion.complete_3p,
+                                        'MainProtein': main_protein_seq
                                         }, ignore_index=True)
             except IndexError:
-                pass
+                df_res = df_res.append({'FusionPair': None,
+                                        'OncogenicProbability': 'Not Applicable',
+                                        'Version': fusion.version,
+                                        'Chr5p': fusion.chr5p,
+                                        'Coord5p': fusion.coord5p,
+                                        '5pStrand': None,
+                                        '5pCommonName': None,
+                                        '5pEnsg': None,
+                                        '5pGeneFunctionality': None,
+                                        '5pGeneDescription': None,
+                                        'Chr3p': fusion.chr3p,
+                                        'Coord3p': fusion.coord3p,
+                                        '3pStrand': None,
+                                        '3pCommonName': None,
+                                        '3pEnsg': None,
+                                        '3pGeneFunctionality': None,
+                                        '3pGeneDescription': None,
+                                        'MainProteinLength': None,
+                                        'TruncatedProtein': None,
+                                        '5p_gene_complete': None,
+                                        '3p_gene_complete': None,
+                                        'MainProtein': None
+                                        }, ignore_index=True)
             continue
     # 6. save the results to file
     df_res.to_csv(output_file_path, sep='\t')

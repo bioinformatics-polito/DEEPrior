@@ -83,13 +83,26 @@ class PortionNoCCDSID:
         for i in range(len(transcripts)):
             exons = transcripts[i].exons_pos
             cds = transcripts[i].cds_pos
-            # defines ranges of UTR regions
-            utr_ranges = [min(exons), min(cds), max(cds), max(exons)]
+            # defines ranges of 5p and 3p UTR regions, depending on the strand
+            # utr_ranges = [min(exons), min(cds), max(cds), max(exons)]
+            if transcripts[i].strand == 1:
+                utr_ranges_5p = [self.genes[0].start, min(cds)]
+                utr_ranges_3p = [max(cds), self.genes[0].end]
 
-            # check if breakpoint is UTR
-            if (utr_ranges[0] <= self.breakpoint_coord < utr_ranges[1]) or \
-                    (utr_ranges[2] < self.breakpoint_coord <= utr_ranges[3]):
-                info = 'UTR'
+            else:
+                utr_ranges_5p = [max(cds), self.genes[0].end]
+                utr_ranges_3p = [self.genes[0].start, min(cds)]
+
+            # check if breakpoint is 5p UTR or 3p UTR
+            if utr_ranges_5p[0] <= self.breakpoint_coord <= utr_ranges_5p[1]:
+                info = 'UTR_5p'
+
+            elif utr_ranges_3p[0] <= self.breakpoint_coord <= utr_ranges_3p[1]:
+                info = 'UTR_3p'
+
+            # if (utr_ranges[0] <= self.breakpoint_coord < utr_ranges[1]) or \
+            #         (utr_ranges[2] < self.breakpoint_coord <= utr_ranges[3]):
+            #     info = 'UTR'
             # check if breakpoint is cds or intron
             else:
                 is_in_cds_range = []
