@@ -144,9 +144,11 @@ python DEEPrior.py [-h] [-m retraining] [-i INPUT] [-v VERSION] [-t TRAINING_FLA
   **-i INPUT, --input INPUT**
                         input file (with path) of gene fusions to prioritize,
                         e.g. /home/user/DEEPenv/DEEPrior/DEEPrior/input_examples/re_train_example.csv
+
   **-v VERSION, --version VERSION**
                         Genome version of input file coordinates. 'grch37' or
                         'grch38' allowed
+
   **-t TRAINING_FLAG --training TRAINING_FLAG**
                         True to include in the re-training process the default training set. 
                         False otherwise.
