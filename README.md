@@ -173,7 +173,7 @@ An example of the *general* format is the following:
 
 The first two columns refer to chromosome number and breakpoint coordinate of 5p gene, while third and fourth columns refer to 3p gene. Coordinates can be entered in genome version *grch37* or *grch38*.
 
-In *input_examples* folder you can find examples of input files for general, DeFuse and STAR-Fusion options.
+In *input_examples* folder you can find examples of all the allowed input files (general and gene fusion detection tools output).
 
 #### 3.1.2 Inference mode output file
 The output file contains the following information
