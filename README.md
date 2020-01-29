@@ -20,7 +20,7 @@ In the following you will find:
 ### 1.1 Prerequisites
 DEEPrior is developed in Python 3.7 with minimal libraries required. To run DEEPrior we strongly suggest you to create a clean virtual environment in order to avoid conflicts with other projects. If you are an expert with virtual environments, all you need is to install the libraries listed in the requirements files, clone this repository and jump directly to **Test if everything is ok**. Otherwise no problem, follow the **Installing** section, the installation is very simple!
 
-#### 1.1.1 Prerequisites CPU
+#### 1.1 Prerequisites
 
 - xlrd 1.2.0
 - pandas 0.24.2
@@ -36,28 +36,7 @@ DEEPrior is developed in Python 3.7 with minimal libraries required. To run DEEP
 - keras 2.2.4
 - tensorflow 1.13.1
 
-The prerequisites are listed in the requirements_CPU.txt file. 
-
-#### 1.1.2 Prerequisites GPU
-We assume that **cuda 10.0** is installed on your system.
-
-- xlrd 1.2.0
-- pandas 0.24.2
-- biopython 1.73
-- matplotlib 3.1.0
-- numpy 1.16.4
-- requests 2.22.0
-- scikit-learn 0.21.2
-- scipy 1.2.1
-- click 7.0
-- configparser 3.7.4
-- pyfiglet 0.8.post1
-- keras 2.2.4
-- tensorflow 1.13.1
-- tensorflow-estimator 1.13.0 
-- tensorflow-gpu 1.13.1
-
-The prerequisites are listed in the requirements_GPU.txt file. 
+The prerequisites are listed in the requirements.txt file. 
 
 ### 1.2 Installing
 First of all, check if you have pip and the virtual environments packages for Python3. If pip and/or virtualenv are not installed in your system, follow the instructions reported [here](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/).
@@ -73,6 +52,7 @@ Use requirements_CPU.txt if you are installing the CPU version of DEEPrior, requ
 cd DEEPenv
 git clone https://github.com/bioinformatics-polito/DEEPrior.git
 cd DEEPrior
+pip3 install --upgrade pip           # ensure you have the last version of pip
 pip3 install -r requirements_CPU.txt
 ```
 
