@@ -53,7 +53,7 @@ cd DEEPenv
 git clone https://github.com/bioinformatics-polito/DEEPrior.git
 cd DEEPrior
 pip3 install --upgrade pip           # ensure you have the last version of pip
-pip3 install -r requirements_CPU.txt
+pip3 install -r requirements.txt
 ```
 
 ### 1.3 Test if everything is ok
