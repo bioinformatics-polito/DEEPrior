@@ -10,5 +10,5 @@ click==7.0
 configparser==3.7.4
 pyfiglet==0.8.post1
 keras==2.2.4
-tensorflow==1.15.2
+tensorflow==2.3.1
 
