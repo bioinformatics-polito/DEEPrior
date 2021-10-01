@@ -50,59 +50,58 @@ def main_sequence(fusion_object):
 
 def generating_fusion_list(file, version, mode):
     fusion_list = []
-
     for i in range(len(file)):
         # for each fusion
         print("Dataset is building: %0.2f%% complete" % ((i + 1) / len(file) * 100))
-
-        # find 5p and 3p
-        chr5p, coord5p, chr3p, coord3p = str(file.iloc[i, 0]), str(file.iloc[i, 1]), \
-                                         str(file.iloc[i, 2]), str(file.iloc[i, 3])
-
-        tissue = 'Unknown'
-
+        if str(file.iloc[i, 0]) != 'nan' and str(file.iloc[i, 1]) != 'nan' and str(file.iloc[i, 2]) != 'nan' and str(file.iloc[i, 3]) != 'nan':
+            chr5p, coord5p, chr3p, coord3p = str(file.iloc[i, 0]), str(file.iloc[i, 1]), \
+                                             str(file.iloc[i, 2]), str(file.iloc[i, 3])
+            tissue = 'Unknown'
         # create and save object
-        fusion_list.append(FusionNoCCDSID(chr5p, coord5p, chr3p, coord3p, tissue, version))
+            fusion_list.append(FusionNoCCDSID(chr5p, coord5p, chr3p, coord3p, tissue, i, version))
 
-        # TRANSLATE nucleotides sequences into amino acids sequences and add LABELS
-        fusion_list[i].proteins = []
-        fusion_list[i].proteins_details = []
-        fusion_list[i].main_protein = ''
-        fusion_list[i].main_protein_len = None
-        fusion_list[i].early_stop = None
-        fusion_list[i].complete_5p = None
-        fusion_list[i].complete_3p = None
+            # TRANSLATE nucleotides sequences into amino acids sequences and add LABELS
+            fusion_list[i].proteins = []
+            fusion_list[i].proteins_details = []
+            fusion_list[i].main_protein = ''
+            fusion_list[i].main_protein_len = None
+            fusion_list[i].early_stop = None
+            fusion_list[i].complete_5p = None
+            fusion_list[i].complete_3p = None
 
-        if mode == 'inference':
-            fusion_list[i].labels = 'To be evaluated by the model'
-        elif mode == 'retraining':
-            fusion_list[i].labels = file.iloc[i, 4]
+            if mode == 'inference':
+                fusion_list[i].labels = 'To be evaluated by the model'
+            elif mode == 'retraining':
+                fusion_list[i].labels = file.iloc[i, 4]
 
-        if len(fusion_list[i].sequences) != 0:
-            for seq in fusion_list[i].sequences:
-                sequence = seq
+            if len(fusion_list[i].sequences) != 0:
+                for seq in fusion_list[i].sequences:
+                    sequence = seq
 
-                # if there is a partial codon, delete it
-                if len(sequence) % 3 != 0:
-                    sequence = sequence[:-(len(sequence) % 3)]
-                seq = Seq(sequence, generic_dna)
-                b = str(seq.translate())
-                prot = b.split('*')[0]
+                    # if there is a partial codon, delete it
+                    if len(sequence) % 3 != 0:
+                        sequence = sequence[:-(len(sequence) % 3)]
+                    seq = Seq(sequence, generic_dna)
+                    b = str(seq.translate())
+                    prot = b.split('*')[0]
 
-                # add protein fusion obj.proteins_details
-                fusion_list[i].proteins_details.append(b)
+                    # add protein fusion obj.proteins_details
+                    fusion_list[i].proteins_details.append(b)
 
-                # add protein to fusion obj.proteins only if not present
-                if prot not in fusion_list[i].proteins:
-                    fusion_list[i].proteins.append(prot)
+                    # add protein to fusion obj.proteins only if not present
+                    if prot not in fusion_list[i].proteins:
+                        fusion_list[i].proteins.append(prot)
 
-            # calculating main protein, main protein length, early stopping in the protein,
-            # 5p and 3p gene coming complete only if there are sequences!!
-            fusion_list[i].main_protein, \
-            fusion_list[i].main_protein_len, \
-            fusion_list[i].early_stop, \
-            fusion_list[i].complete_5p, \
-            fusion_list[i].complete_3p = main_sequence(fusion_list[i])
+                # calculating main protein, main protein length, early stopping in the protein,
+                # 5p and 3p gene coming complete only if there are sequences!!
+                fusion_list[i].main_protein, \
+                fusion_list[i].main_protein_len, \
+                fusion_list[i].early_stop, \
+                fusion_list[i].complete_5p, \
+                fusion_list[i].complete_3p = main_sequence(fusion_list[i])
+        else:
+            fusion_list.append("Missing information, fusion skipped")
+            print(f'Fusion number {i+1} skipped due to lack of necessary information')
 
     return fusion_list
 

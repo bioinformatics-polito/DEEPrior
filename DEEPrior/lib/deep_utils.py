@@ -60,16 +60,18 @@ def retrieve_test_sequences(fusion, tokenizer):
     x_test = []
     sequences = []
     label = -1
-    if len(fusion.proteins) > 0:
-        sequences = []
-        for seq in fusion.proteins:
-            if len(seq) > MIN_PROT_SEQ and len(seq) <= MAX_PROT_SEQ:
-                sequences.append(seq)
-        if len(sequences) > 0:
-            x_test_nopad = tokenizer.texts_to_sequences(sequences)
-            x_test = pad_sequences(x_test_nopad, maxlen=MAX_PROT_SEQ, padding='post')
-            label = fusion.labels
-
+    try:
+        if len(fusion.proteins) > 0:
+            sequences = []
+            for seq in fusion.proteins:
+                if len(seq) > MIN_PROT_SEQ and len(seq) <= MAX_PROT_SEQ:
+                    sequences.append(seq)
+                if len(sequences) > 0:
+                    x_test_nopad = tokenizer.texts_to_sequences(sequences)
+                    x_test = pad_sequences(x_test_nopad, maxlen=MAX_PROT_SEQ, padding='post')
+                    label = fusion.labels
+    except:
+        pass
     return x_test, sequences, label
 
 

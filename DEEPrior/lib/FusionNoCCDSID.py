@@ -5,7 +5,7 @@ from lib.PortionNoCCDSID import PortionNoCCDSID
 
 
 class FusionNoCCDSID:
-    def __init__(self, chr5p, coord5p, chr3p, coord3p, tissue, version='grch38'):
+    def __init__(self, chr5p, coord5p, chr3p, coord3p, tissue, nfusion, version='grch37'):
         self.chr5p = chr5p.replace('chr', '')
         self.chr3p = chr3p.replace('chr', '')
         self.coord5p = coord5p
@@ -19,12 +19,13 @@ class FusionNoCCDSID:
         self.sequences = []
         self.sequences_details = []
         self.protein_cod = []
-
         self._fusion_info()
         # only if both are protein coding, calculates info_breakpoints and sequences
         # if all(elem == 'protein_coding' for elem in self.protein_cod):
         self._calculate_sequences()
-
+        #aggiungo un flag nell'oggetto di default a True
+        self.skipped = "False"
+        self._incomplete(nfusion)
     def _fusion_info(self):
         # calculate fusion_pair, protein_coding only if a there is a valid ENSG gene
         if len(self.portions[0].genes) != 0 and len(self.portions[1].genes) != 0:
@@ -86,5 +87,17 @@ class FusionNoCCDSID:
         #             self.sequences.append(sequences5p[i] + sequences3p[j])
         #             self.sequences_details.append(sequences5p[i] + '-' + sequences3p[j])
 
+        return
+
+    def _incomplete(self, nfusion):
+        r = [str(x) for x in range(22 + 1)] + ["X", "Y", "MT"]
+        if ((self.chr5p in r) and (self.chr3p in r)) is False:
+            self.skipped = "True"
+            if self.chr5p not in r:
+                print(f'Invalid chromosome 5p, fusion {nfusion + 1} skipped')
+                self.chr5p = 'Invalid value'
+            else:
+                print(f'Invalid chromosome 3p, fusion {nfusion + 1} skipped')
+                self.chr3p = 'Invalid value'
         return
 
