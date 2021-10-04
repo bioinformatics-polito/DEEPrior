@@ -5,7 +5,7 @@ from lib.PortionNoCCDSID import PortionNoCCDSID
 
 
 class FusionNoCCDSID:
-    def __init__(self, chr5p, coord5p, chr3p, coord3p, tissue, nfusion, version='grch37'):
+    def __init__(self, chr5p, coord5p, chr3p, coord3p, tissue, nfusion, version='grch38'):
         self.chr5p = chr5p.replace('chr', '')
         self.chr3p = chr3p.replace('chr', '')
         self.coord5p = coord5p
