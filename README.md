@@ -5,7 +5,7 @@ of a gene fusion being a driver of an oncogenic process, by directly exploiting 
 
 To implement these concepts, the tool exploits two modes: inference (to prioritize gene fusions) and retraining (to create a new deep learning model).
 
-DEEPrior is implemented in Python 3.7.0 with minimal additional libraries, and it is available both for CPU and GPU.
+DEEPrior is implemented in Python 3.7.0 with minimal additional libraries, and it is available both for CPU and GPU on macOS and Linux operating system.
 
 In the following you will find:
 
@@ -18,7 +18,7 @@ In the following you will find:
 ## 1. Getting Started
 
 ### 1.1 Prerequisites
-DEEPrior is developed in Python 3.7.0 with minimal libraries required. To run DEEPrior we strongly suggest you to create a clean virtual environment in order to avoid conflicts with other projects. If you are an expert with virtual environments, all you need is to install the libraries listed in the requirements files, clone this repository and jump directly to **Test if everything is ok**. Otherwise no problem, follow the **Installing** section, the installation is very simple!
+DEEPrior is developed in Python 3.7.0 with minimal libraries required . To run DEEPrior we strongly suggest you to create a clean virtual environment in order to avoid conflicts with other projects. If you are an expert with virtual environments, all you need is to install the libraries listed in the requirements files, clone this repository and jump directly to **Test if everything is ok**. Otherwise no problem, follow the **Installing** section, the installation is very simple!
 
 #### 1.1 Prerequisites
 
@@ -40,21 +40,14 @@ DEEPrior is developed in Python 3.7.0 with minimal libraries required. To run DE
 The prerequisites are listed in the requirements.txt file. 
 
 ### 1.2 Installing
-First of all, check if you have pip and conda. If pip and/or conda are not installed in your system, follow the instructions to install miniconda [here] https://docs.conda.io/en/latest/miniconda.html#installing. Once you find the right version, copy the installer link and read the following instructions: 
-...
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh #this is the latest Linux installer links nowadays, check if there is a new available version
-sha256sum filename  #verify your installer hashes
-bash Miniconda3-latest-Linux-x86_64.sh 
-...
-If the conda base environment is not yet activate run this command:
+First of all, check if you have pip and conda installed in your system. If pip and/or conda are not installed in your system, follow the instructions to install miniconda [here] https://docs.conda.io/en/latest/miniconda.html#installing. If the conda base environment is not yet activate run this command:
 ...
 conda activate
 ...
-Now copy and paste these instrucions to create and activate a DEEPrior virtual environment called *DEEPenv*:
+Now copy and paste these instrucions to create and activate a DEEPrior virtual environment called *DEEPenv* with conda:
 ```
 conda create --name DEEPenv python=3.7.0 #create a new virtual environment with a selected version of python
 conda activate DEEPenv
-
 ```
 Then **clone this repository** and install all the required packages listed in requirements.txt.  
 ```
@@ -68,7 +61,7 @@ python -m pip install -r requirements.txt
 Once you have followed the previous steps, test the tool with the following commands:
 
 ```
-cd ../              # move to DEEPenv folder. You can use the global path e.g. cd /home/user/DEEPenv
+cd ../              
 conda activate DEEPenv # command to activate virtual environment if you followed our installation guide
 cd DEEPrior/DEEPrior
 mkdir results
