@@ -5,7 +5,7 @@ of a gene fusion being a driver of an oncogenic process, by directly exploiting 
 
 To implement these concepts, the tool exploits two modes: inference (to prioritize gene fusions) and retraining (to create a new deep learning model).
 
-DEEPrior is implemented in Python 3.7 with minimal additional libraries, and it is available both for CPU and GPU.
+DEEPrior is implemented in Python 3.7.0 with minimal additional libraries, and it is available both for CPU and GPU.
 
 In the following you will find:
 
@@ -18,7 +18,7 @@ In the following you will find:
 ## 1. Getting Started
 
 ### 1.1 Prerequisites
-DEEPrior is developed in Python 3.7 with minimal libraries required. To run DEEPrior we strongly suggest you to create a clean virtual environment in order to avoid conflicts with other projects. If you are an expert with virtual environments, all you need is to install the libraries listed in the requirements files, clone this repository and jump directly to **Test if everything is ok**. Otherwise no problem, follow the **Installing** section, the installation is very simple!
+DEEPrior is developed in Python 3.7.0 with minimal libraries required. To run DEEPrior we strongly suggest you to create a clean virtual environment in order to avoid conflicts with other projects. If you are an expert with virtual environments, all you need is to install the libraries listed in the requirements files, clone this repository and jump directly to **Test if everything is ok**. Otherwise no problem, follow the **Installing** section, the installation is very simple!
 
 #### 1.1 Prerequisites
 
@@ -28,40 +28,48 @@ DEEPrior is developed in Python 3.7 with minimal libraries required. To run DEEP
 - matplotlib 3.1.0
 - numpy 1.16.4
 - requests 2.22.0
-- scikit-learn 0.21.2
 - scipy 1.2.1
+- scikit-learn 0.21.2
 - click 7.0
 - configparser 3.7.4
 - pyfiglet 0.8.post1
 - keras 2.2.4
-- tensorflow 1.13.1
+- tensorflow 1.13.2
+- h5py 2.10.0
 
 The prerequisites are listed in the requirements.txt file. 
 
 ### 1.2 Installing
-First of all, check if you have pip and the virtual environments packages for Python3. If pip and/or virtualenv are not installed in your system, follow the instructions reported [here](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/).
-
+First of all, check if you have pip and conda. If pip and/or conda are not installed in your system, follow the instructions to install miniconda [here] https://docs.conda.io/en/latest/miniconda.html#installing. Once you find the right version, copy the installer link and read the following instructions: 
+...
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh #this is the latest Linux installer links nowadays, check if there is a new available version
+sha256sum filename  #verify your installer hashes
+bash Miniconda3-latest-Linux-x86_64.sh 
+...
+If the conda base environment is not yet activate run this command:
+...
+conda activate
+...
 Now copy and paste these instrucions to create and activate a DEEPrior virtual environment called *DEEPenv*:
 ```
-python3 -m venv DEEPenv
-source DEEPenv/bin/activate
+conda create --name DEEPenv python=3.7.0 #create a new virtual environment with a selected version of python
+conda activate DEEPenv
+
 ```
-Then move in the DEEPenv forlder, **clone this repository** and install all the required packages. 
-Use requirements_CPU.txt if you are installing the CPU version of DEEPrior, requirements_GPU.txt otherwise. 
+Then **clone this repository** and install all the required packages listed in requirements.txt.  
 ```
-cd DEEPenv
 git clone https://github.com/bioinformatics-polito/DEEPrior.git
 cd DEEPrior
-pip3 install --upgrade pip           # ensure you have the last version of pip
-pip3 install -r requirements.txt
+python -m pip install --upgrade pip           # ensure you have the last version of pip
+python -m pip install -r requirements.txt
 ```
 
 ### 1.3 Test if everything is ok
-Once you have followed the previous steps, **move into DEEPenv folder** and test the tool with the following commands:
+Once you have followed the previous steps, test the tool with the following commands:
 
 ```
 cd ../              # move to DEEPenv folder. You can use the global path e.g. cd /home/user/DEEPenv
-source bin/activate # command to activate virtual environment if you followed our installation guide
+conda activate DEEPenv # command to activate virtual environment if you followed our installation guide
 cd DEEPrior/DEEPrior
 mkdir results
 python DEEPrior.py -i input_examples/general_out_example.txt -f general -v grch37 -o results/DEEPrior_results.csv
