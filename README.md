@@ -42,7 +42,9 @@ The prerequisites are listed in the requirements.txt file.
 ### 1.2 Installing
 First of all, check if you have pip and conda installed in your system. If pip and/or conda are not installed in your system, follow the instructions to install miniconda [here] https://docs.conda.io/en/latest/miniconda.html#installing. If the conda base environment is not yet activate run this command:
 ...
+
 conda activate
+
 ...
 Now copy and paste these instrucions to create and activate a DEEPrior virtual environment called *DEEPenv* with conda:
 ```
