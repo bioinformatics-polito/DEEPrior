@@ -5,9 +5,13 @@ of a gene fusion being a driver of an oncogenic process by directly exploiting t
 
 The tool exploits two modes: inference (to prioritize gene fusions) and retraining (to create a new deep learning model).
 
+<<<<<<< HEAD
 DEEPrior is implemented in Python 3.7.0 with minimal additional libraries, and it is available both for CPU and GPU on macOS and Linux operating systems.
 
 In the following, you will find:
+=======
+DEEPrior is implemented in Python 3.7.0 with minimal additional libraries, and it is available both for CPU and GPU on macOS and Linux operating system.
+>>>>>>> e8d3578c83b03d9decf4d3bea5da76572dfddb65
 
 
 1) *Getting Started*: obtain a working copy of DEEPrior
@@ -18,7 +22,12 @@ In the following, you will find:
 
 ## 1. Getting Started
 
+<<<<<<< HEAD
 DEEPrior is developed in Python 3.7.0 with minimal libraries required. To run DEEPrior, we strongly suggest you create a clean virtual environment to avoid conflicts with other projects. If you are an expert with virtual environments, all you need is to install the libraries listed in the requirements files, clone this repository, and jump directly to **Test if everything is ok**. Otherwise, no problem, follow the **Installing** section. The installation is very simple!
+=======
+### 1.1 Prerequisites
+DEEPrior is developed in Python 3.7.0 with minimal libraries required . To run DEEPrior we strongly suggest you to create a clean virtual environment in order to avoid conflicts with other projects. If you are an expert with virtual environments, all you need is to install the libraries listed in the requirements files, clone this repository and jump directly to **Test if everything is ok**. Otherwise no problem, follow the **Installing** section, the installation is very simple!
+>>>>>>> e8d3578c83b03d9decf4d3bea5da76572dfddb65
 
 #### 1.1 Prerequisites
 
@@ -40,11 +49,19 @@ DEEPrior is developed in Python 3.7.0 with minimal libraries required. To run DE
 The prerequisites are listed in the requirements.txt file. 
 
 ### 1.2 Installing
+<<<<<<< HEAD
 First of all, check if you have pip and conda installed in your system. If pip and/or conda are not installed in your system, follow the instructions to install miniconda [here] https://docs.conda.io/en/latest/miniconda.html#installing. If the conda base environment is not yet activated, run this command:
 ```
 conda activate
 ```
 Now copy and paste these instructions to create and activate a DEEPrior virtual environment called *DEEPenv* with conda:
+=======
+First of all, check if you have pip and conda installed in your system. If pip and/or conda are not installed in your system, follow the instructions to install miniconda [here] https://docs.conda.io/en/latest/miniconda.html#installing. If the conda base environment is not yet activate run this command:
+```
+conda activate
+```
+Now copy and paste these instrucions to create and activate a DEEPrior virtual environment called *DEEPenv* with conda:
+>>>>>>> e8d3578c83b03d9decf4d3bea5da76572dfddb65
 
 ```
 conda create --name DEEPenv python=3.7.0 #create a new virtual environment with a selected version of python
