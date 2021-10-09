@@ -11,7 +11,7 @@ DEEPrior is implemented in Python 3.7.0 with minimal additional libraries, and i
 In the following, you will find:
 =======
 DEEPrior is implemented in Python 3.7.0 with minimal additional libraries, and it is available both for CPU and GPU on macOS and Linux operating system.
->>>>>>> e8d3578c83b03d9decf4d3bea5da76572dfddb65
+>>>>>>> 
 
 
 1) *Getting Started*: obtain a working copy of DEEPrior
@@ -27,8 +27,7 @@ DEEPrior is developed in Python 3.7.0 with minimal libraries required. To run DE
 =======
 ### 1.1 Prerequisites
 DEEPrior is developed in Python 3.7.0 with minimal libraries required . To run DEEPrior we strongly suggest you to create a clean virtual environment in order to avoid conflicts with other projects. If you are an expert with virtual environments, all you need is to install the libraries listed in the requirements files, clone this repository and jump directly to **Test if everything is ok**. Otherwise no problem, follow the **Installing** section, the installation is very simple!
->>>>>>> e8d3578c83b03d9decf4d3bea5da76572dfddb65
-
+>>>>>>> 
 #### 1.1 Prerequisites
 
 - xlrd 1.2.0
@@ -61,7 +60,7 @@ First of all, check if you have pip and conda installed in your system. If pip a
 conda activate
 ```
 Now copy and paste these instrucions to create and activate a DEEPrior virtual environment called *DEEPenv* with conda:
->>>>>>> e8d3578c83b03d9decf4d3bea5da76572dfddb65
+>>>>>>> 
 
 ```
 conda create --name DEEPenv python=3.7.0 #create a new virtual environment with a selected version of python
