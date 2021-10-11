@@ -1,14 +1,16 @@
 # DEEPrior
 
 DEEPrior is an inherently flexible deep learning tool that predicts the probability
-of a gene fusion being a driver of an oncogenic process, by directly exploiting the amino acid sequence of the fused protein and it is able to prioritize gene fusions from different tumors. Unlike state of the art tools, it also support easy retraining and re-adaptation of the model. 
+of a gene fusion being a driver of an oncogenic process by directly exploiting the amino acid sequence of the fused protein, and it can prioritize gene fusions from different tumors. Unlike state-of-the-art tools, it also supports easy retraining and re-adaptation of the model. 
 
-To implement these concepts, the tool exploits two modes: inference (to prioritize gene fusions) and retraining (to create a new deep learning model).
+The tool exploits two modes: inference (to prioritize gene fusions) and retraining (to create a new deep learning model).
 
-DEEPrior is implemented in Python 3.7 with minimal additional libraries, and it is available both for CPU and GPU.
 
-In the following you will find:
+DEEPrior is implemented in Python 3.7.0 with minimal additional libraries, and it is available both for CPU and GPU on macOS and Linux operating systems.
 
+In the following, you will find:
+=======
+>>>>>>> 
 1) *Getting Started*: obtain a working copy of DEEPrior
 2) *Usage*: how to use DEEPrior with examples
 3) *Files*: input and output files for inference and retraining mode
@@ -17,8 +19,7 @@ In the following you will find:
 
 ## 1. Getting Started
 
-### 1.1 Prerequisites
-DEEPrior is developed in Python 3.7 with minimal libraries required. To run DEEPrior we strongly suggest you to create a clean virtual environment in order to avoid conflicts with other projects. If you are an expert with virtual environments, all you need is to install the libraries listed in the requirements files, clone this repository and jump directly to **Test if everything is ok**. Otherwise no problem, follow the **Installing** section, the installation is very simple!
+DEEPrior is developed in Python 3.7.0 with minimal libraries required. To run DEEPrior, we strongly suggest you create a clean virtual environment to avoid conflicts with other projects. If you are an expert with virtual environments, all you need is to install the libraries listed in the requirements files, clone this repository, and jump directly to **Test if everything is ok**. Otherwise, no problem, follow the **Installing** section. The installation is very simple!
 
 #### 1.1 Prerequisites
 
@@ -28,47 +29,50 @@ DEEPrior is developed in Python 3.7 with minimal libraries required. To run DEEP
 - matplotlib 3.1.0
 - numpy 1.16.4
 - requests 2.22.0
-- scikit-learn 0.21.2
 - scipy 1.2.1
+- scikit-learn 0.21.2
 - click 7.0
 - configparser 3.7.4
 - pyfiglet 0.8.post1
 - keras 2.2.4
-- tensorflow 1.13.1
+- tensorflow 1.13.2
+- h5py 2.10.0
 
 The prerequisites are listed in the requirements.txt file. 
 
 ### 1.2 Installing
-First of all, check if you have pip and the virtual environments packages for Python3. If pip and/or virtualenv are not installed in your system, follow the instructions reported [here](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/).
 
-Now copy and paste these instrucions to create and activate a DEEPrior virtual environment called *DEEPenv*:
+First of all, check if you have pip and conda installed in your system. If pip and/or conda are not installed in your system, follow the instructions to install miniconda [here] https://docs.conda.io/en/latest/miniconda.html#installing. If the conda base environment is not yet activated, run this command:
 ```
-python3 -m venv DEEPenv
-source DEEPenv/bin/activate
+conda activate
 ```
-Then move in the DEEPenv forlder, **clone this repository** and install all the required packages. 
-Use requirements_CPU.txt if you are installing the CPU version of DEEPrior, requirements_GPU.txt otherwise. 
+Now copy and paste these instructions to create and activate a DEEPrior virtual environment called *DEEPenv* with conda:
+
 ```
-cd DEEPenv
+conda create --name DEEPenv python=3.7.0 #create a new virtual environment with a selected version of python
+conda activate DEEPenv
+```
+Then **clone this repository** and install all the required packages listed in requirements.txt.  
+```
 git clone https://github.com/bioinformatics-polito/DEEPrior.git
 cd DEEPrior
-pip3 install --upgrade pip           # ensure you have the last version of pip
-pip3 install -r requirements.txt
+python -m pip install --upgrade pip           # ensure you have the last version of pip
+python -m pip install -r requirements.txt
 ```
 
 ### 1.3 Test if everything is ok
-Once you have followed the previous steps, **move into DEEPenv folder** and test the tool with the following commands:
+Once you have followed the previous steps, test the tool with the following commands:
 
 ```
-cd ../              # move to DEEPenv folder. You can use the global path e.g. cd /home/user/DEEPenv
-source bin/activate # command to activate virtual environment if you followed our installation guide
+cd ../              
+conda activate DEEPenv # command to activate virtual environment if you followed our installation guide
 cd DEEPrior/DEEPrior
 mkdir results
 python DEEPrior.py -i input_examples/general_out_example.txt -f general -v grch37 -o results/DEEPrior_results.csv
 ```
 
-If everything worked correctly, after a few seconds you will find DEEPrior_results.csv file in the DEEPenv/DEEPrior/DEEPrior/results folder.
-It's done, you are now ready to use DEEPrior!
+If everything worked correctly, you would find the DEEPrior_results.csv file in the DEEPenv/DEEPrior/DEEPrior/results folder after a few seconds.
+It is done. You are now ready to use DEEPrior!
 
 
 ## 2. Usage
@@ -136,12 +140,11 @@ python DEEPrior.py [-h] [-m retraining] [-i INPUT] [-v VERSION] [-t TRAINING_FLA
 
 ## 3 Files
 
-### 3.1 Inference mode
 Inference mode is the default mode. The following are the input and output files.
 
 #### 3.1.1 Inference mode input file
-DEEPrior is intended to be run after gene fusion detection tools in order to prioritize the output and focus on gene fusions with a higher probability to be involved in oncogenic processes.
-DEEPrior natively support the output of DeFuse, STAR-Fusion, ChimPIPE, EricScript, FusionCatcher, InFusion, JAFFA, SOAPfuse, TopHat, however any gene fusion can be processed providing in a **tab separated file** the genomic coordinates of the breakpoints (see *general_out_example.txt* file in *input_example* folder).
+DEEPrior is intended to be run after gene fusion detection tools to prioritize the output and focus on gene fusions with a higher probability of being involved in oncogenic processes.
+DEEPrior natively supports the output of DeFuse, STAR-Fusion, ChimPIPE, EricScript, FusionCatcher, InFusion, JAFFA, SOAPfuse, TopHat. However, any gene fusion can be processed providing in a **tab-separated file** the genomic coordinates of the breakpoints (see *general_out_example.txt* file in *input_example* folder).
 
 An example of the *general* format is the following:
 
@@ -151,9 +154,9 @@ An example of the *general* format is the following:
 | chr9  | 2555965 | chr6  | 56444888 |
 
 
-The first two columns refer to chromosome number and breakpoint coordinate of 5p gene, while third and fourth columns refer to 3p gene. Coordinates can be entered in genome version *grch37* or *grch38*.
+The first two columns refer to chromosome number and breakpoint coordinate of 5p gene, while the third and fourth columns refer to 3p gene. Coordinates can be entered in genome version *grch37* or *grch38*.
 
-In *input_examples* folder you can find examples of all the allowed input files (general and gene fusion detection tools output).
+In *input_examples* folder, you can find examples of all the allowed input files (general and gene fusion detection tools output).
 
 #### 3.1.2 Inference mode output file
 The output file contains the following information
@@ -186,8 +189,8 @@ The output file contains the following information
 Although the retraining mode is not the main one, DEEPrior allows you to retrain the deep learning model if new validated gene fusions are available.
 
 #### 3.2.1 Retraining mode input file
-In this case, the input file is a **tab separated file** and contains validated gene fusions to be included in the retraining of the model for which the label (*oncogenic* or *not oncogenic*) is known.
-The file is similar to the one reported in 3.1.1 and in addition it contains the **Label** column which indicates the class to which that gene fusion belongs. 0 means not oncogenic and 1 oncogenic. An example of the file is provided below and also in the *input_examples* folder (*re_train_example.csv* file):
+In this case, the input file is a **tab-separated file** and contains validated gene fusions to be included in the retraining of the model for which the label (*oncogenic* or *not oncogenic*) is known.
+The file is similar to the one reported in 3.1.1, and in addition, it contains the **Label** column, which indicates the class to which that gene fusion belongs. 0 means not oncogenic and 1 oncogenic. An example of the file is provided below and also in the *input_examples* folder (*re_train_example.csv* file):
 
 | chr5p | coord5p   | chr3p | coor3p    | label |
 |-------|-----------|-------|-----------|-------|
@@ -200,24 +203,25 @@ The file is similar to the one reported in 3.1.1 and in addition it contains the
 
 
 #### 3.2.2 Retraining mode output file
-The retraining mode output consists of a **.hdf5 file** containing the weights and the architecture of the new trained model. This model can then be used to make the gene fusions inference instead of the default deep learning model.
+The retraining mode output consists of a **.hdf5 file** containing the weights and the architecture of the newly trained model. This model can then be used to make the gene fusions inference instead of the default deep learning model.
 
 ## 4. Datasets
-Together with the DEEPrior tool, we provide to the scientific community the datasets used to train and test DEEPrior. The datasets (*training.csv*, *test_set_1.csv*, *test_set_2.csv*) are available in *DEEPrior/data* folder in the format described in section 2.2. Moreover, there is a *Label* column identifying which class the gene fusion belongs to (0 for *NotOnco* and 1 for *Onco*).
+Together with the DEEPrior tool, we provide to the scientific community the datasets used to train and test DEEPrior. The datasets (*training.csv*, *test_set_1.csv*, *test_set_2.csv*) are available in *DEEPrior/data* folder in the format described in section 2.2. Moreover, a *Label* column identifies which class the gene fusion belongs to (0 for *NotOnco* and 1 for *Onco*).
 
 ### 4.1 Training set
 This set consists of 786 fusion pairs (777 genes overall) and 2118 sequences, respectively 1059 Onco and 1059 NotOnco, obtained from COSMIC (Catalog of Somatic Mutations in Cancer) and Babicenau et al. work *Recurrent chimeric fusion rnas in non-cancer tissues and cells*.
 
 ### 4.2 Test set 1
-This set is composed of a total of 142 fusion pairs and 156 gene fusions, of which 122 Onco and 34 NotOnco. The sequences associated with Onco gene fusions were extracted from the ChimerDB2.0 database, while NotOnco were constituted by the false positives reported by TopHat-Fusion and STAR-Fusion on Illumina BodyMap 2.0 samples.
+This set is composed of 142 fusion pairs and 156 gene fusions, of which 122 Onco and 34 NotOnco. The sequences associated with Onco gene fusions were extracted from the ChimerDB2.0 database, while NotOnco were constituted by the false positives reported by TopHat-Fusion and STAR-Fusion on Illumina BodyMap 2.0 samples.
 
 ### 4.3 Test set 2
-This set is composed of 2595 fusion pairs and 2623 gene fusions, all belonging to the Onco category. This dataset was built starting from the work of Gao et al. *Driver fusions and their implications in the development and treatment of human cancers*.
+This set comprises 2595 fusion pairs and 2623 gene fusions, all belonging to the Onco category. This dataset was built starting from the work of Gao et al. *Driver fusions and their implications in the development and treatment of human cancers*.
 
 ## Authors
 
 * **Marta Lovino** - contact marta.lovino@polito.it
 * **Maria Serena Ciaburri** 
+* **Francesca Miccolis** 
 * **Gianvito Urgese** 
 * **Enrico Macii** 
 * **Santa Di Cataldo** 
