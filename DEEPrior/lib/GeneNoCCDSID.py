@@ -7,15 +7,42 @@ from lib.Transcript import Transcript
 
 class GeneNoCCDSID:
     def __init__(self, obj_dict):
-        self.start = obj_dict['start']
-        self.end = obj_dict['end']
-        self.ensg = obj_dict['gene_id']
-        self.common_name = obj_dict['external_name']
-        self.strand = obj_dict['strand']
-        self.chr = obj_dict['seq_region_name']
-        self.version = obj_dict['assembly_name']
-        self.description = obj_dict['description']
-        self.biotype = obj_dict['biotype']
+        try:
+            self.start = obj_dict['start']
+        except KeyError:
+            self.start = []
+        try:
+            self.end = obj_dict['end']
+        except KeyError:
+            self.end = []
+        try:
+            self.ensg = obj_dict['gene_id']
+        except KeyError:
+            self.ensg = []
+        try:
+            self.common_name = obj_dict['external_name']
+        except KeyError:
+            self.common_name = []
+        try:
+            self.strand = obj_dict['strand']
+        except KeyError:
+            self.strand = []
+        try:
+            self.chr = obj_dict['seq_region_name']
+        except KeyError:
+            self.chr = []
+        try:
+            self.version = obj_dict['assembly_name']
+        except KeyError:
+            self.version = []
+        try:
+            self.description = obj_dict['description']
+        except KeyError:
+            self.description = []
+        try:
+            self.biotype = obj_dict['biotype']
+        except KeyError:
+            self.biotype = []
         self.decoded = []
         self.transcripts = []
 
