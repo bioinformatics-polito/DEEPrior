@@ -52,7 +52,7 @@ def generating_fusion_list(file, version, mode):
     fusion_list = []
     for i in range(len(file)):
         # for each fusion
-        print("Dataset is building: %0.2f%% complete" % ((i + 1) / len(file) * 100))
+        print("Dataset is building: %0.2f%% complete. Fusion number %d" % ((i + 1) / len(file) * 100, i+1))
         if str(file.iloc[i, 0]) != 'nan' and str(file.iloc[i, 1]) != 'nan' and str(file.iloc[i, 2]) != 'nan' and str(file.iloc[i, 3]) != 'nan':
             chr5p, coord5p, chr3p, coord3p = str(file.iloc[i, 0]), str(file.iloc[i, 1]), \
                                              str(file.iloc[i, 2]), str(file.iloc[i, 3])
@@ -119,8 +119,8 @@ def create_fusion_list(file, tool, version, mode):
             reduced_file = file[['chr5p', 'coord5p', 'chr3p', 'coord3p']]
 
         if tool == 'DeFuse':
-            file['chr5p'] = 'chr' + file['gene_chromosome1']
-            file['chr3p'] = 'chr' + file['gene_chromosome2']
+            file['chr5p'] = 'chr' + file['gene_chromosome1'].apply(str)
+            file['chr3p'] = 'chr' + file['gene_chromosome2'].apply(str)
             file['coord5p'] = file['genomic_break_pos1'].apply(int).apply(str)
             file['coord3p'] = file['genomic_break_pos2'].apply(int).apply(str)
             reduced_file = file[['chr5p', 'coord5p', 'chr3p', 'coord3p']]

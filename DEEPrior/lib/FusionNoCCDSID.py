@@ -27,8 +27,8 @@ class FusionNoCCDSID:
         self.skipped = "False"
         self._incomplete(nfusion)
     def _fusion_info(self):
-        # calculate fusion_pair, protein_coding only if a there is a valid ENSG gene
-        if len(self.portions[0].genes) != 0 and len(self.portions[1].genes) != 0:
+        # calculate fusion_pair, protein_coding only if a there is a valid ENSG gene, with valid common name
+        if len(self.portions[0].genes) != 0 and len(self.portions[1].genes) != 0 and len(self.portions[0].common_name) != 0 and len(self.portions[1].common_name) != 0:
             self.fusion_pair = self.portions[0].common_name + '_' + self.portions[1].common_name
             self.protein_cod.append(self.portions[0].biotype)
             self.protein_cod.append(self.portions[1].biotype)

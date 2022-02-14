@@ -65,6 +65,7 @@ def evaluate_fusions(list_fusions, trained_model_path, output_file_path):
                                         '3p_gene_complete': None,
                                         'MainProtein': None
                                         }, ignore_index=True)
+                continue
             else:
                 try:
                     if fusion.portions[0].genes[0].strand == 1:
@@ -118,56 +119,57 @@ def evaluate_fusions(list_fusions, trained_model_path, output_file_path):
                                         'MainProtein': main_protein_seq
                                         # 'Proteins': sequences
                                         }, ignore_index=True)
-            else:
-                try:
-                    df_res = df_res.append({'FusionPair': fusion.fusion_pair,
-                                            'OncogenicProbability': 'Not Applicable',
-                                            'Version': fusion.version,
-                                            'Chr5p': fusion.chr5p,
-                                            'Coord5p': fusion.coord5p,
-                                            '5pStrand': fiveprime_strand,
-                                            '5pCommonName': fusion.portions[0].genes[0].common_name,
-                                            '5pEnsg': fusion.portions[0].ensg,
-                                            '5pGeneFunctionality': fusion.protein_cod[0],
-                                            '5pGeneDescription': fusion.portions[0].genes[0].description,
-                                            'Chr3p': fusion.chr3p,
-                                            'Coord3p': fusion.coord3p,
-                                            '3pStrand': threeprime_strand,
-                                            '3pCommonName': fusion.portions[1].genes[0].common_name,
-                                            '3pEnsg': fusion.portions[1].ensg,
-                                            '3pGeneFunctionality': fusion.protein_cod[1],
-                                            '3pGeneDescription': fusion.portions[1].genes[0].description,
-                                            'MainProteinLength': fusion.main_protein_len,
-                                            'TruncatedProtein': fusion.early_stop,
-                                            '5p_gene_complete': fusion.complete_5p,
-                                            '3p_gene_complete': fusion.complete_3p,
-                                            'MainProtein': main_protein_seq
-                                            }, ignore_index=True)
-                except IndexError:
-                    df_res = df_res.append({'FusionPair': None,
-                                            'OncogenicProbability': 'Not Applicable',
-                                            'Version': fusion.version,
-                                            'Chr5p': fusion.chr5p,
-                                            'Coord5p': fusion.coord5p,
-                                            '5pStrand': None,
-                                            '5pCommonName': None,
-                                            '5pEnsg': None,
-                                            '5pGeneFunctionality': None,
-                                            '5pGeneDescription': None,
-                                            'Chr3p': fusion.chr3p,
-                                            'Coord3p': fusion.coord3p,
-                                            '3pStrand': None,
-                                            '3pCommonName': None,
-                                            '3pEnsg': None,
-                                            '3pGeneFunctionality': None,
-                                            '3pGeneDescription': None,
-                                            'MainProteinLength': None,
-                                            'TruncatedProtein': None,
-                                            '5p_gene_complete': None,
-                                            '3p_gene_complete': None,
-                                            'MainProtein': None
-                                            }, ignore_index=True)
-                continue
+            # else:
+            #     try:
+            #         df_res = df_res.append({'FusionPair': fusion.fusion_pair,
+            #                                 'OncogenicProbability': 'Not Applicable',
+            #                                 'Version': fusion.version,
+            #                                 'Chr5p': fusion.chr5p,
+            #                                 'Coord5p': fusion.coord5p,
+            #                                 '5pStrand': fiveprime_strand,
+            #                                 '5pCommonName': fusion.portions[0].genes[0].common_name,
+            #                                 '5pEnsg': fusion.portions[0].ensg,
+            #                                 '5pGeneFunctionality': fusion.protein_cod[0],
+            #                                 '5pGeneDescription': fusion.portions[0].genes[0].description,
+            #                                 'Chr3p': fusion.chr3p,
+            #                                 'Coord3p': fusion.coord3p,
+            #                                 '3pStrand': threeprime_strand,
+            #                                 '3pCommonName': fusion.portions[1].genes[0].common_name,
+            #                                 '3pEnsg': fusion.portions[1].ensg,
+            #                                 '3pGeneFunctionality': fusion.protein_cod[1],
+            #                                 '3pGeneDescription': fusion.portions[1].genes[0].description,
+            #                                 'MainProteinLength': fusion.main_protein_len,
+            #                                 'TruncatedProtein': fusion.early_stop,
+            #                                 '5p_gene_complete': fusion.complete_5p,
+            #                                 '3p_gene_complete': fusion.complete_3p,
+            #                                 'MainProtein': main_protein_seq
+            #                                 }, ignore_index=True)
+            #     except IndexError:
+            #         df_res = df_res.append({'FusionPair': None,
+            #                                 'OncogenicProbability': 'Not Applicable',
+            #                                 'Version': fusion.version,
+            #                                 'Chr5p': fusion.chr5p,
+            #                                 'Coord5p': fusion.coord5p,
+            #                                 '5pStrand': None,
+            #                                 '5pCommonName': None,
+            #                                 '5pEnsg': None,
+            #                                 '5pGeneFunctionality': None,
+            #                                 '5pGeneDescription': None,
+            #                                 'Chr3p': fusion.chr3p,
+            #                                 'Coord3p': fusion.coord3p,
+            #                                 '3pStrand': None,
+            #                                 '3pCommonName': None,
+            #                                 '3pEnsg': None,
+            #                                 '3pGeneFunctionality': None,
+            #                                 '3pGeneDescription': None,
+            #                                 'MainProteinLength': None,
+            #                                 'TruncatedProtein': None,
+            #                                 '5p_gene_complete': None,
+            #                                 '3p_gene_complete': None,
+            #                                 'MainProtein': None
+            #                                 }, ignore_index=True)
+            #
+            #     continue
     # 6. save the results to file
     df_res.to_csv(output_file_path, sep='\t')
     print("Results saved at: "+output_file_path)
